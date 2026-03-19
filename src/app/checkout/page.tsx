@@ -34,15 +34,17 @@ export default function CheckoutPage() {
             // Note: Ensure you are passing your Sanctum Auth Bearer token in the headers here!
             const response = await axios.post(
                 `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/checkout`,
-                { items: cartItems },
+                // 1. Ensure we are sending the dummy product we created (ID: 1)
+                { items: [{ product_id: 1, quantity: 1 }] },
                 {
                     headers: {
-                        'Authorization': `Bearer YOUR_USER_SANCTUM_TOKEN_HERE`,
+                        // 2. PASTE YOUR TOKEN HERE:
+                        // Keep the word "Bearer " and the space before your token
+                        'Authorization': `Bearer 1|L6CYZPhDhBqTehxTc784cUNKhB9DTSAhzo6L5gzG6d79077b`,
                         'Accept': 'application/json'
                     }
                 }
             );
-
             const { total_amount, order_reference } = response.data;
 
             // STEP B: Update our Paystack config with the OFFICIAL backend data
